@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod_test/screen/counter_screen.dart';
+import 'package:riverpod_test/screen/student_screen.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -7,7 +7,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: CounterScreen(),
+      home: StudentScreen(),
     );
   }
 }
