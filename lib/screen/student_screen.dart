@@ -65,19 +65,127 @@ class _StudentScreenState extends ConsumerState<StudentScreen> {
                           itemBuilder: (context, index) {
                             Student student = studentState.lstStudents[index];
                             return ListTile(
-                              tileColor: Colors.greenAccent,
-                              title: Text(student.fname),
-                              subtitle: Text(student.lname),
-                              trailing: IconButton(
-                                icon: const Icon(Icons.delete),
-                                onPressed: () {
-                                  ref
-                                      .read(studentViewModelProvider.notifier)
-                                      .deleteStudent(index);
-                                },
-                                color: Colors.red,
-                              ),
-                            );
+                                leading: const Icon(Icons.person),
+                                tileColor: Colors.blueAccent,
+                                title: Text(student.fname),
+                                subtitle: Text(student.lname),
+                                trailing: Wrap(
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.edit),
+                                      onPressed: () {
+                                        _fnameController.text = student.fname;
+                                        _lnameController.text = student.lname;
+
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                content: Stack(
+                                                  children: [
+                                                    Positioned(
+                                                      right: -40,
+                                                      top: -40,
+                                                      child: InkResponse(
+                                                        onTap: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child:
+                                                            const CircleAvatar(
+                                                          backgroundColor:
+                                                              Colors.red,
+                                                          child:
+                                                              Icon(Icons.close),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Form(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            child:
+                                                                TextFormField(
+                                                              controller:
+                                                                  _fnameController,
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                hintText:
+                                                                    'First Name',
+                                                                border:
+                                                                    OutlineInputBorder(),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            child:
+                                                                TextFormField(
+                                                              controller:
+                                                                  _lnameController,
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                hintText:
+                                                                    'Last Name',
+                                                                border:
+                                                                    OutlineInputBorder(),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            child:
+                                                                ElevatedButton(
+                                                                    child: const Text(
+                                                                        'Edit'),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Student student = Student(
+                                                                          fname: _fnameController
+                                                                              .text,
+                                                                          lname:
+                                                                              _lnameController.text);
+                                                                      ref.read(studentViewModelProvider.notifier).updateStudent(
+                                                                          index:
+                                                                              index,
+                                                                          student:
+                                                                              student);
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                    }),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            });
+                                      },
+                                      color: Colors.green,
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.delete),
+                                      onPressed: () {
+                                        ref
+                                            .read(studentViewModelProvider
+                                                .notifier)
+                                            .deleteStudent(index);
+                                      },
+                                      color: Colors.red,
+                                    ),
+                                  ],
+                                ));
                           },
                         ),
                       ),

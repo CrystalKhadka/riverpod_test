@@ -24,4 +24,11 @@ class StudentState {
     return StudentState(
         lstStudents: lstStudents..removeAt(index), isLoading: isLoading);
   }
+
+  StudentState updateAt(
+      {required bool isLoading, required int index, required Student student}) {
+    List<Student> updatedList = List<Student>.from(lstStudents);
+    updatedList[index] = student;
+    return StudentState(lstStudents: updatedList, isLoading: isLoading);
+  }
 }

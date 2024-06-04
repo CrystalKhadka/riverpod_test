@@ -25,4 +25,12 @@ class StudentViewModel extends StateNotifier<StudentState> {
     );
     state = state.deleteAt(isLoading: false, index: index);
   }
+
+  void updateStudent({required int index, required Student student}) async {
+    state = state.copyWith(isLoading: true);
+    await Future.delayed(
+      const Duration(seconds: 2),
+    );
+    state = state.updateAt(isLoading: false, index: index, student: student);
+  }
 }
